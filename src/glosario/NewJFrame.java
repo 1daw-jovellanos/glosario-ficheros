@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package diccionario;
+package glosario;
 
 import java.awt.Dialog;
 import javax.swing.JOptionPane;

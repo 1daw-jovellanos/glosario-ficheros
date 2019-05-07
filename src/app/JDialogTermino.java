@@ -126,7 +126,7 @@ public class JDialogTermino extends java.awt.Dialog {
     }//GEN-LAST:event_closeDialog
 
     private void jTextFieldTerminoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTerminoActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jTextFieldTerminoActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
@@ -162,19 +162,7 @@ public class JDialogTermino extends java.awt.Dialog {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                JDialogTermino dialog = new JDialogTermino(new java.awt.Frame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

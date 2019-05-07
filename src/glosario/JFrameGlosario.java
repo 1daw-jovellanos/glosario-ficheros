@@ -5,22 +5,25 @@
  */
 package glosario;
 
-import java.awt.Dialog;
-import javax.swing.JOptionPane;
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.filechooser.*;
+import java.io.*;
+import javax.imageio.ImageIO;
 
-/**
- *
- * @author victor.fernandez
- */
-public class NewJFrame extends javax.swing.JFrame {
 
-    
+public class JFrameGlosario extends javax.swing.JFrame {
+
     /**
      * Creates new form NewJFrame
      */
-    public NewJFrame() {
+    public JFrameGlosario() {
         initComponents();
-        
+        try {
+        this.setIconImage(ImageIO.read(new File("book.png")));
+        } catch (Exception ex) {
+            System.err.println("No se pudo cargar el icono del JFrame");
+        }
     }
 
     /**
@@ -40,16 +43,19 @@ public class NewJFrame extends javax.swing.JFrame {
         jButtonBuscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreaDefinicion = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jMenuBar = new javax.swing.JMenuBar();
         jMenuFichero = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuAnnadir = new javax.swing.JMenu();
-        jMenuAyuda = new javax.swing.JMenu();
+        jMenuItemNuevo = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMenuItemGuardar = new javax.swing.JMenuItem();
+        jMenuItemCargar = new javax.swing.JMenuItem();
+        jMenuDatos = new javax.swing.JMenu();
+        jMenuItemCambiarTema = new javax.swing.JMenuItem();
+        jMenuItemAnandir = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Glosario - Ejercicio de ficheros");
+        setResizable(false);
 
         jLabelLTema.setText("Tema:");
 
@@ -74,46 +80,57 @@ public class NewJFrame extends javax.swing.JFrame {
         jTextAreaDefinicion.setRows(5);
         jScrollPane1.setViewportView(jTextAreaDefinicion);
 
-        jButton1.setText("Cambiar Tema");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setText("Editar término");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
         jMenuFichero.setText("Fichero");
 
-        jMenuItem1.setText("Cargar...");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemNuevo.setText("Nuevo");
+        jMenuItemNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jMenuItemNuevoActionPerformed(evt);
             }
         });
-        jMenuFichero.add(jMenuItem1);
+        jMenuFichero.add(jMenuItemNuevo);
+        jMenuFichero.add(jSeparator1);
 
-        jMenuItem2.setText("Guardar...");
-        jMenuFichero.add(jMenuItem2);
+        jMenuItemGuardar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/download.png"))); // NOI18N
+        jMenuItemGuardar.setText("Guardar...");
+        jMenuItemGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemGuardarActionPerformed(evt);
+            }
+        });
+        jMenuFichero.add(jMenuItemGuardar);
+
+        jMenuItemCargar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/upload.png"))); // NOI18N
+        jMenuItemCargar.setText("Cargar...");
+        jMenuItemCargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCargarActionPerformed(evt);
+            }
+        });
+        jMenuFichero.add(jMenuItemCargar);
 
         jMenuBar.add(jMenuFichero);
 
-        jMenuAnnadir.setText("Añadir");
-        jMenuAnnadir.addActionListener(new java.awt.event.ActionListener() {
+        jMenuDatos.setText("Datos");
+
+        jMenuItemCambiarTema.setText("Cabiar tema...");
+        jMenuItemCambiarTema.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuAnnadirActionPerformed(evt);
+                jMenuItemCambiarTemaActionPerformed(evt);
             }
         });
-        jMenuBar.add(jMenuAnnadir);
+        jMenuDatos.add(jMenuItemCambiarTema);
 
-        jMenuAyuda.setMnemonic('C');
-        jMenuAyuda.setText("Ayuda");
-        jMenuBar.add(jMenuAyuda);
+        jMenuItemAnandir.setText("Añadir...");
+        jMenuItemAnandir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemAnandirActionPerformed(evt);
+            }
+        });
+        jMenuDatos.add(jMenuItemAnandir);
+
+        jMenuBar.add(jMenuDatos);
 
         setJMenuBar(jMenuBar);
 
@@ -138,13 +155,8 @@ public class NewJFrame extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabelLTema)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabelTema, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jLabelTema, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 197, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -153,8 +165,7 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelLTema)
-                    .addComponent(jLabelTema)
-                    .addComponent(jButton1))
+                    .addComponent(jLabelTema))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelLCantidadTerminos)
@@ -165,8 +176,6 @@ public class NewJFrame extends javax.swing.JFrame {
                     .addComponent(jButtonBuscar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -174,27 +183,48 @@ public class NewJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextFieldBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jTextFieldBusquedaActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    private void jMenuItemCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCargarActionPerformed
+        JFileChooser chooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                "Formato nosequé (.nsq)", "jpg", "gif");
+        chooser.addChoosableFileFilter(filter);
+        chooser.addChoosableFileFilter(new FileNameExtensionFilter("Formato nosecuantos (.nsc)", "glosario"));
+        JTextArea message = new JTextArea();
+        message.setText("La extensión determina el formato.\n Escriba con responsabilidad");
+        message.setEditable(false);
+        chooser.setAccessory(message);
+        int returnVal = chooser.showSaveDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            System.out.println("You chose to open this file: "
+                    + chooser.getSelectedFile().getAbsolutePath());
+        }
+    }//GEN-LAST:event_jMenuItemCargarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        JOptionPane.showInputDialog("Introduce el tema:");        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void jMenuItemGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGuardarActionPerformed
+        JOptionPane.showMessageDialog(this, "Guardar");
+    }//GEN-LAST:event_jMenuItemGuardarActionPerformed
 
-    private void jMenuAnnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAnnadirActionPerformed
-        
-    }//GEN-LAST:event_jMenuAnnadirActionPerformed
+    private void jMenuItemAnandirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAnandirActionPerformed
+        JDialogTermino dialogo = new JDialogTermino(this, true);
+        dialogo.setVisible(true);
+        if (dialogo.getGuardarPulsado()) {
+            String termino = dialogo.getTermino();
+            System.out.println("Termino: " + termino);
+        }
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        JDialogTermino jDialogTermino = new JDialogTermino(this, true);
-        jDialogTermino.setVisible(true);
-        
-        
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jMenuItemAnandirActionPerformed
+
+    private void jMenuItemCambiarTemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCambiarTemaActionPerformed
+        String tema = JOptionPane.showInputDialog(this, "Introduce tema:");
+        System.out.println("Tema: " + tema);
+    }//GEN-LAST:event_jMenuItemCambiarTemaActionPerformed
+
+    private void jMenuItemNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevoActionPerformed
+        JOptionPane.showConfirmDialog(this, "Se van a borrar todos los datos. Confirme la operación, por favor");
+    }//GEN-LAST:event_jMenuItemNuevoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -213,39 +243,41 @@ public class NewJFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrameGlosario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrameGlosario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrameGlosario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrameGlosario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NewJFrame().setVisible(true);
+                new JFrameGlosario().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonBuscar;
     private javax.swing.JLabel jLabelCantidadTerminos;
     private javax.swing.JLabel jLabelLCantidadTerminos;
     private javax.swing.JLabel jLabelLTema;
     private javax.swing.JLabel jLabelTema;
-    private javax.swing.JMenu jMenuAnnadir;
-    private javax.swing.JMenu jMenuAyuda;
     private javax.swing.JMenuBar jMenuBar;
+    private javax.swing.JMenu jMenuDatos;
     private javax.swing.JMenu jMenuFichero;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItemAnandir;
+    private javax.swing.JMenuItem jMenuItemCambiarTema;
+    private javax.swing.JMenuItem jMenuItemCargar;
+    private javax.swing.JMenuItem jMenuItemGuardar;
+    private javax.swing.JMenuItem jMenuItemNuevo;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JTextArea jTextAreaDefinicion;
     private javax.swing.JTextField jTextFieldBusqueda;
     // End of variables declaration//GEN-END:variables

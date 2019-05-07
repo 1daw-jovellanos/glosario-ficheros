@@ -3,12 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package ficheros;
 
-/**
- *
- * @author victor
- */
-public class Glosario {
-    
+import modelo.Glosario;
+import java.io.IOException;
+
+public interface IGuardar {
+   public void guardar(Glosario glosario, String filename) throws IOException;
 }

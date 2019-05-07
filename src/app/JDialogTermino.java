@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package glosario;
+package app;
 
 /**
  *
@@ -11,12 +11,15 @@ package glosario;
  */
 public class JDialogTermino extends java.awt.Dialog {
 
+    private boolean guardarPulsado;
+
     /**
      * Creates new form NewDialog
      */
     public JDialogTermino(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        guardarPulsado = false;
     }
 
     /**
@@ -27,42 +30,49 @@ public class JDialogTermino extends java.awt.Dialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        jButtonCancelar = new javax.swing.JButton();
+        jButtonGuardar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        jTextAreaDefinicion = new javax.swing.JTextArea();
+        jLabelLTermino = new javax.swing.JLabel();
+        jTextFieldTermino = new javax.swing.JTextField();
+        jLabelLDefinicion = new javax.swing.JLabel();
 
+        setResizable(false);
+        setTitle("Añadir término");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 closeDialog(evt);
             }
         });
 
-        jButton2.setText("Cancelar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButtonCancelarActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Guardar");
-
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
-
-        jLabel2.setText("Definición:");
-
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonGuardar.setText("Guardar");
+        jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                jButtonGuardarActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("Término: ");
+        jTextAreaDefinicion.setColumns(20);
+        jTextAreaDefinicion.setRows(5);
+        jScrollPane1.setViewportView(jTextAreaDefinicion);
+
+        jLabelLTermino.setText("Definición:");
+
+        jTextFieldTermino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldTerminoActionPerformed(evt);
+            }
+        });
+
+        jLabelLDefinicion.setText("Término: ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -74,16 +84,16 @@ public class JDialogTermino extends java.awt.Dialog {
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel1)
+                            .addComponent(jLabelLDefinicion)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jLabel2)))
+                            .addComponent(jTextFieldTermino, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabelLTermino)))
                 .addContainerGap(36, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(jButtonGuardar)
                 .addGap(10, 10, 10)
-                .addComponent(jButton2)
+                .addComponent(jButtonCancelar)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -91,16 +101,16 @@ public class JDialogTermino extends java.awt.Dialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelLDefinicion)
+                    .addComponent(jTextFieldTermino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addComponent(jLabelLTermino)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jButtonGuardar)
+                    .addComponent(jButtonCancelar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -115,14 +125,40 @@ public class JDialogTermino extends java.awt.Dialog {
         dispose();
     }//GEN-LAST:event_closeDialog
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void jTextFieldTerminoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTerminoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_jTextFieldTerminoActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         setVisible(false);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
 
+    private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+        guardarPulsado = true;
+        setVisible(false);
+    }//GEN-LAST:event_jButtonGuardarActionPerformed
+
+    public String getTermino() {
+        return jTextFieldTermino.getText();
+    }
+
+    public String getDefinicion() {
+        return jTextAreaDefinicion.getText();
+    }
+
+    public boolean getGuardarPulsado() {
+        return guardarPulsado;
+    }
+
+//    public void setTermino(String termino) {
+//        jTextFieldTermino.setText(termino);
+//    }
+//
+//    public void setDefinicion(String definicion) {
+//        jTextAreaDefinicion.setText(definicion);
+//    }
+
+ 
     /**
      * @param args the command line arguments
      */
@@ -142,12 +178,13 @@ public class JDialogTermino extends java.awt.Dialog {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton jButtonCancelar;
+    private javax.swing.JButton jButtonGuardar;
+    private javax.swing.JLabel jLabelLDefinicion;
+    private javax.swing.JLabel jLabelLTermino;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextArea jTextAreaDefinicion;
+    private javax.swing.JTextField jTextFieldTermino;
     // End of variables declaration//GEN-END:variables
+
 }
